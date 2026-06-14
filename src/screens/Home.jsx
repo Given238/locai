@@ -16,10 +16,18 @@ function SearchIcon() {
 
 export default function Home({ navigate }) {
   const [activeFilter, setActiveFilter] = useState('All')
+  const [searchQuery, setSearchQuery] = useState('')
 
-  const guides = guidesData.guides.filter((g) =>
-    activeFilter === 'All' ? true : g.specialty.includes(activeFilter)
-  )
+  const guides = guidesData.guides.filter((g) => {
+    const matchesFilter = activeFilter === 'All' || g.specialty.includes(activeFilter)
+    const q = searchQuery.toLowerCase()
+    const matchesSearch =
+      q === '' ||
+      g.name.toLowerCase().includes(q) ||
+      g.specialty.some((s) => s.toLowerCase().includes(q)) ||
+      g.location.toLowerCase().includes(q)
+    return matchesFilter && matchesSearch
+  })
 
   return (
     <div className="flex flex-col bg-[#FAF7F2]" style={{ height: '812px' }}>
@@ -48,11 +56,17 @@ export default function Home({ navigate }) {
 
         {/* Search bar */}
         <div
-          className="flex items-center gap-3 mt-3 px-4 py-3 rounded-2xl"
+          className="flex items-center gap-3 mt-3 px-4 rounded-2xl"
           style={{ background: '#F0EDEA' }}
         >
           <SearchIcon />
-          <span className="text-gray-400 text-[14px]">Search guides, specialties…</span>
+          <input
+            type="search"
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            placeholder="Search guides, specialties…"
+            className="flex-1 bg-transparent py-3 text-[14px] text-gray-700 placeholder-gray-400 outline-none"
+          />
         </div>
       </div>
 
