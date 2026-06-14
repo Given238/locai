@@ -1,0 +1,46 @@
+{
+  "guides": [
+    {
+      "id": 1,
+      "name": "Pak Budi Situmorang",
+      "photo": "/images/guide-1.jpg",
+      "specialty": ["Trekking", "Cultural"],
+      "rating": 4.9,
+      "reviewCount": 47,
+      "pricePerDay": 350000,
+      "verified": true,
+      "bio": "Born and raised in Samosir Island. 8 years guiding experience. Specialist in Batak cultural tours and Sipiso-piso waterfall treks.",
+      "languages": ["English", "Indonesian", "Batak"],
+      "location": "Samosir Island",
+      "whatsapp": "+62812XXXXXXXX"
+    },
+    {
+      "id": 2,
+      "name": "Bu Sari Nababan",
+      "photo": "/images/guide-2.jpg",
+      "specialty": ["Cultural", "Local Food"],
+      "rating": 4.8,
+      "reviewCount": 31,
+      "pricePerDay": 300000,
+      "verified": true,
+      "bio": "Batak cultural expert with deep knowledge of traditional ceremonies, weaving, and authentic local cuisine. Born in Balige, guides in English and Indonesian.",
+      "languages": ["English", "Indonesian"],
+      "location": "Balige",
+      "whatsapp": "+62813XXXXXXXX"
+    },
+    {
+      "id": 3,
+      "name": "Pak Reza Manurung",
+      "photo": "/images/guide-3.jpg",
+      "specialty": ["Photography", "Trekking"],
+      "rating": 4.7,
+      "reviewCount": 28,
+      "pricePerDay": 400000,
+      "verified": true,
+      "bio": "Professional photographer and licensed guide. Knows every sunrise and golden hour spot around Lake Toba. Perfect for content creators and photographers.",
+      "languages": ["English", "Indonesian"],
+      "location": "Parapat",
+      "whatsapp": "+62857XXXXXXXX"
+    }
+  ]
+}
