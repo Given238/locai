@@ -9,10 +9,29 @@
       "reviewCount": 47,
       "pricePerDay": 350000,
       "verified": true,
-      "bio": "Born and raised in Samosir Island. 8 years guiding experience. Specialist in Batak cultural tours and Sipiso-piso waterfall treks.",
+      "bio": "Born and raised in Samosir Island. 8 years guiding experience. Specialist in Batak cultural tours and the legendary Sipiso-piso waterfall trek. Speaks fluent English and shares stories few tourists ever hear.",
       "languages": ["English", "Indonesian", "Batak"],
       "location": "Samosir Island",
-      "whatsapp": "+62812XXXXXXXX"
+      "whatsapp": "+62812XXXXXXXX",
+      "includes": [
+        "Full-day guided trek to Sipiso-piso Waterfall (120 m drop)",
+        "Traditional Batak village and royal tomb visit in Tomok",
+        "All ferry crossings and local transport arranged"
+      ],
+      "reviews": [
+        {
+          "author": "Sarah M.",
+          "country": "🇬🇧",
+          "rating": 5,
+          "text": "Pak Budi made our Lake Toba trip unforgettable. He knew every trail and the story behind every site."
+        },
+        {
+          "author": "James L.",
+          "country": "🇦🇺",
+          "rating": 5,
+          "text": "So knowledgeable about Batak culture. Highly recommend for first-time visitors to Lake Toba."
+        }
+      ]
     },
     {
       "id": 2,
@@ -23,10 +42,29 @@
       "reviewCount": 31,
       "pricePerDay": 300000,
       "verified": true,
-      "bio": "Batak cultural expert with deep knowledge of traditional ceremonies, weaving, and authentic local cuisine. Born in Balige, guides in English and Indonesian.",
+      "bio": "Batak cultural expert with deep knowledge of traditional ceremonies, hand-woven ulos fabric, and authentic local cuisine. Born in Balige, she guides entirely in English and makes every meal a story.",
       "languages": ["English", "Indonesian"],
       "location": "Balige",
-      "whatsapp": "+62813XXXXXXXX"
+      "whatsapp": "+62813XXXXXXXX",
+      "includes": [
+        "Guided visit to a live Batak adat ceremony (when available)",
+        "Traditional cooking class with authentic Batak recipes",
+        "Balige market tour and ulos weaving demonstration"
+      ],
+      "reviews": [
+        {
+          "author": "Mia T.",
+          "country": "🇩🇪",
+          "rating": 5,
+          "text": "Bu Sari is warm, patient, and incredibly knowledgeable. The cooking class was the highlight of my whole trip!"
+        },
+        {
+          "author": "Kai R.",
+          "country": "🇸🇬",
+          "rating": 4,
+          "text": "Loved the cultural immersion. Bu Sari speaks great English and explained everything with real passion."
+        }
+      ]
     },
     {
       "id": 3,
@@ -37,10 +75,29 @@
       "reviewCount": 28,
       "pricePerDay": 400000,
       "verified": true,
-      "bio": "Professional photographer and licensed guide. Knows every sunrise and golden hour spot around Lake Toba. Perfect for content creators and photographers.",
+      "bio": "Professional photographer and licensed guide. Knows every golden hour spot, secret sunrise viewpoint, and reflection pool around Lake Toba. Perfect for content creators and photographers serious about their shots.",
       "languages": ["English", "Indonesian"],
       "location": "Parapat",
-      "whatsapp": "+62857XXXXXXXX"
+      "whatsapp": "+62857XXXXXXXX",
+      "includes": [
+        "Pre-dawn drive to Tele Viewpoint for sunrise shoot",
+        "Golden hour session at secret Samosir Island reflection spots",
+        "Live composition and editing tips from a working photographer"
+      ],
+      "reviews": [
+        {
+          "author": "Alex W.",
+          "country": "🇺🇸",
+          "rating": 5,
+          "text": "Pak Reza took us to spots no travel blog would ever find. My best landscape shots came from this trip."
+        },
+        {
+          "author": "Priya S.",
+          "country": "🇮🇳",
+          "rating": 5,
+          "text": "As a content creator, this was exactly what I needed. Reza understood framing, light, and storytelling."
+        }
+      ]
     }
   ]
 }
