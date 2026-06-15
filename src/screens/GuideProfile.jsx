@@ -1,3 +1,5 @@
+import { useState } from 'react'
+
 const PHOTO_THEMES = {
   1: { from: '#0a4a4d', to: '#0D7377' },
   2: { from: '#7c2d12', to: '#c2410c' },
@@ -61,6 +63,8 @@ function MapPinIcon() {
 }
 
 export default function GuideProfile({ guide, navigate }) {
+  const [imgFailed, setImgFailed] = useState(false)
+
   if (!guide) {
     navigate('home')
     return null
@@ -76,27 +80,42 @@ export default function GuideProfile({ guide, navigate }) {
     >
       {/* ── Hero photo area (~40% of screen) ── */}
       <div
-        className="relative flex items-center justify-center shrink-0"
+        className="relative flex items-center justify-center shrink-0 overflow-hidden"
         style={{
           height: '325px',
           background: `linear-gradient(160deg, ${theme.from} 0%, ${theme.to} 100%)`,
         }}
       >
-        {/* Person silhouette */}
-        <svg width="110" height="110" viewBox="0 0 110 110" fill="none">
-          <circle cx="55" cy="38" r="22" fill="rgba(255,255,255,0.22)" />
-          <path d="M10 100c0-24.9 20.1-45 45-45s45 20.1 45 45" fill="rgba(255,255,255,0.22)" />
-        </svg>
+        {/* Real guide photo — falls back to silhouette */}
+        {guide.photo && !imgFailed ? (
+          <img
+            src={guide.photo}
+            alt={guide.name}
+            onError={() => setImgFailed(true)}
+            className="absolute inset-0 w-full h-full object-cover object-top"
+          />
+        ) : (
+          <svg width="110" height="110" viewBox="0 0 110 110" fill="none">
+            <circle cx="55" cy="38" r="22" fill="rgba(255,255,255,0.22)" />
+            <path d="M10 100c0-24.9 20.1-45 45-45s45 20.1 45 45" fill="rgba(255,255,255,0.22)" />
+          </svg>
+        )}
+
+        {/* Dark scrim over photo for readability */}
+        <div
+          className="absolute inset-0"
+          style={{ background: 'linear-gradient(to bottom, rgba(0,0,0,0.25) 0%, transparent 45%, rgba(0,0,0,0.35) 100%)' }}
+        />
 
         {/* Back button — top left */}
-        <div className="absolute top-12 left-4">
+        <div className="absolute top-12 left-4 z-10">
           <BackButton onPress={() => navigate('home')} />
         </div>
 
         {/* Verified badge — top right */}
         {guide.verified && (
           <div
-            className="absolute top-12 right-4 flex items-center gap-1.5 px-3 py-1.5 rounded-full"
+            className="absolute top-12 right-4 z-10 flex items-center gap-1.5 px-3 py-1.5 rounded-full"
             style={{ background: 'rgba(0,0,0,0.35)', backdropFilter: 'blur(6px)' }}
           >
             <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#34d399" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
@@ -105,15 +124,6 @@ export default function GuideProfile({ guide, navigate }) {
             <span className="text-white text-[11px] font-semibold">Verified</span>
           </div>
         )}
-
-        {/* Bottom fade into white card */}
-        <div
-          className="absolute inset-x-0 bottom-0"
-          style={{
-            height: '80px',
-            background: 'linear-gradient(to bottom, transparent, rgba(0,0,0,0.18))',
-          }}
-        />
       </div>
 
       {/* ── Content card ── */}

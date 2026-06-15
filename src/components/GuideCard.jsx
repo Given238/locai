@@ -1,3 +1,5 @@
+import { useState } from 'react'
+
 const PHOTO_THEMES = {
   1: { from: '#0a4a4d', to: '#0D7377' },
   2: { from: '#7c2d12', to: '#c2410c' },
@@ -14,7 +16,7 @@ const SPECIALTY_COLORS = {
 
 function PersonSilhouette() {
   return (
-    <svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <svg width="64" height="64" viewBox="0 0 64 64" fill="none">
       <circle cx="32" cy="22" r="12" fill="rgba(255,255,255,0.25)" />
       <path d="M8 58c0-13.25 10.75-24 24-24s24 10.75 24 24" fill="rgba(255,255,255,0.25)" />
     </svg>
@@ -53,34 +55,53 @@ function MapPinIcon() {
 }
 
 export default function GuideCard({ guide, onClick }) {
+  const [imgFailed, setImgFailed] = useState(false)
   const theme = PHOTO_THEMES[guide.id] || PHOTO_THEMES[1]
   const priceFormatted = `Rp${(guide.pricePerDay / 1000).toFixed(0)}k`
 
   return (
     <div
       onClick={onClick}
-      className="bg-white rounded-2xl overflow-hidden cursor-pointer active:scale-[0.98] transition-transform duration-150"
+      className="bg-white rounded-2xl overflow-hidden cursor-pointer active:scale-[0.98] transition-transform duration-150 hover:shadow-lg"
       style={{ boxShadow: '0 2px 16px rgba(0,0,0,0.08)' }}
     >
       {/* Photo area */}
       <div
-        className="relative flex items-center justify-center"
+        className="relative flex items-center justify-center overflow-hidden"
         style={{
           height: '148px',
           background: `linear-gradient(160deg, ${theme.from} 0%, ${theme.to} 100%)`,
         }}
       >
-        <PersonSilhouette />
+        {/* Real photo — falls back to silhouette on error */}
+        {guide.photo && !imgFailed ? (
+          <img
+            src={guide.photo}
+            alt={guide.name}
+            onError={() => setImgFailed(true)}
+            className="absolute inset-0 w-full h-full object-cover object-top"
+          />
+        ) : (
+          <PersonSilhouette />
+        )}
+
+        {/* Dark scrim so badges are readable over photos */}
+        <div
+          className="absolute inset-0"
+          style={{ background: 'linear-gradient(to bottom, rgba(0,0,0,0.15) 0%, transparent 40%, rgba(0,0,0,0.25) 100%)' }}
+        />
+
         {/* Verified badge — top right */}
         {guide.verified && (
-          <div className="absolute top-3 right-3">
+          <div className="absolute top-3 right-3 z-10">
             <VerifiedBadge />
           </div>
         )}
+
         {/* Price — bottom left */}
         <div
-          className="absolute bottom-3 left-3 px-2 py-1 rounded-lg"
-          style={{ background: 'rgba(0,0,0,0.45)', backdropFilter: 'blur(4px)' }}
+          className="absolute bottom-3 left-3 z-10 px-2 py-1 rounded-lg"
+          style={{ background: 'rgba(0,0,0,0.50)', backdropFilter: 'blur(4px)' }}
         >
           <span className="text-white text-[12px] font-semibold">{priceFormatted}/day</span>
         </div>
@@ -88,7 +109,6 @@ export default function GuideCard({ guide, onClick }) {
 
       {/* Card body */}
       <div className="px-4 py-3">
-        {/* Name + rating row */}
         <div className="flex items-start justify-between gap-2">
           <p className="text-gray-900 font-semibold text-[15px] leading-tight flex-1">
             {guide.name}
@@ -100,13 +120,11 @@ export default function GuideCard({ guide, onClick }) {
           </div>
         </div>
 
-        {/* Location */}
         <div className="flex items-center gap-1 mt-1">
           <MapPinIcon />
           <span className="text-gray-400 text-[12px]">{guide.location}</span>
         </div>
 
-        {/* Specialty chips */}
         <div className="flex gap-1.5 mt-2.5 flex-wrap">
           {guide.specialty.map((tag) => {
             const colors = SPECIALTY_COLORS[tag] || { bg: '#f3f4f6', text: '#374151' }

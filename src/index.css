@@ -8,3 +8,51 @@
   --color-cream: #FAF7F2;
   --color-mist: #F0EDEA;
 }
+
+/* ── Page transition — applied to every screen on mount ── */
+@keyframes screenEnter {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.screen-enter {
+  animation: screenEnter 0.22s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+/* ── Slide in from right (forward navigation) ── */
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.screen-slide-right {
+  animation: slideInRight 0.25s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+/* ── Slide in from left (back navigation) ── */
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.screen-slide-left {
+  animation: slideInLeft 0.25s cubic-bezier(0.22, 1, 0.36, 1) both;
+}

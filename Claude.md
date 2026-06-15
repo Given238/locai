@@ -2,6 +2,33 @@
 
 This file gives Claude Code full context about the LocAI project so it can assist effectively across all tasks — design, AI integration, deployment, and pitch preparation.
 
+Keep updating CLAUDE.md with the context given during our chat
+
+---
+
+## Build Progress (update this as screens are completed)
+
+| Screen | Status | Notes |
+|---|---|---|
+| 1. Splash | ✅ Done | Dawn gradient (navy→coral→teal), SVG mountains, "Get Started" CTA |
+| 2. Home | ✅ Done | Real `<input type="search">` filters by name/specialty/location; filter chips; 3 guide cards; BottomNav |
+| 3. Guide Profile | ✅ Done | Full-scroll layout (no sticky bar), inline bottom action bar, reviews, back button |
+| 4. AI Chat | ✅ Done | WhatsApp bubbles, typing indicator, suggestion pills, multi-turn, keyboard-aware |
+| 5. Booking | ⏳ Not started | Calendar + duration toggle + price breakdown |
+| 6. Confirmation | ⏳ Not started | Animated checkmark + WhatsApp button |
+
+### Key implementation decisions made so far
+- **Tailwind v4** — uses `@tailwindcss/vite` plugin + `@theme {}` in index.css. No tailwind.config.js.
+- **Navigation** — React state only, no router. `navigate(target, data)` prop on every screen.
+- **Phone frame** — `w-[375px] min-h-[812px] overflow-hidden` container in App.jsx, centered on gray bg.
+- **Layout pattern (screens with BottomNav)** — `flex flex-col height:812px`, content = `flex-1 overflow-y-auto`, nav = `shrink-0`. Never `fixed` or `absolute` for nav.
+- **Layout pattern (full-scroll screens)** — single `overflow-y-auto height:812px` div; all content incl. action bar scrolls naturally (GuideProfile).
+- **Photo placeholders** — gradient backgrounds per guide (teal/amber/indigo) + SVG person silhouette. No real images needed for demo.
+- **guide.includes** and **guide.reviews** — added to guides.json for GuideProfile screen.
+- **api/chat.js** — accepts `{ messages: [...] }` array for multi-turn OR `{ message: '...' }` for legacy. API key from `process.env.OPENAI_API_KEY` only — never in frontend.
+- **Hover animations** — added from Screen 4 onwards. Pattern: `hover:bg-gray-100 hover:scale-110 active:scale-95 transition-all duration-150`. Apply to all new buttons.
+- **Keyboard handling (chat)** — `shrink-0` input bar in flex column + `onFocus` scrollToBottom with 350ms delay covers most mobile cases.
+
 ---
 
 ## Project Overview
@@ -105,6 +132,8 @@ dist/
 ```
 
 ---
+
+
 
 ## App Screens (6 Total — Mobile First, 375x812px)
 
@@ -296,7 +325,7 @@ SAFETY
 2. Tap "Get Started" → Home screen with 3 guides
 3. Tap guide card → Guide profile (Pak Budi)
 4. Tap "Chat with AI" → Chat screen opens
-5. Type: *"How do I get to Samosir Island from Medan?"*
+5. Type: *"How do I get to Samosir Island from fMedan?"*
 6. AI responds with real ferry info
 7. Type: *"Is it safe to go alone as a woman?"*
 8. AI responds with safety tips
