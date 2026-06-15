@@ -9,10 +9,11 @@ export default async function handler(req, res) {
     return res.status(405).json({ error: 'Method not allowed' })
   }
 
-  const { message } = req.body
+  // Accept either { messages: [...] } for multi-turn or { message: '...' } for single-turn
+  const { messages, message } = req.body
 
-  if (!message) {
-    return res.status(400).json({ error: 'Message is required' })
+  if (!messages && !message) {
+    return res.status(400).json({ error: 'messages or message is required' })
   }
 
   const knowledgePath = join(__dirname, '../src/knowledge/guide-knowledge.txt')
@@ -21,11 +22,16 @@ export default async function handler(req, res) {
   const systemPrompt = `You are LocAI Assistant, a helpful AI guide for tourists visiting Lake Toba, Indonesia.
 You answer questions using only the local knowledge provided below.
 If you don't know the answer, say: "I don't have specific information on that — I recommend asking your guide directly or checking with the local tourism office."
-Never make up prices, schedules, or locations.
+Never make up prices, schedules, or locations. Keep responses concise and friendly.
 
 --- LOCAL GUIDE KNOWLEDGE ---
 ${knowledge}
 ---`
+
+  // Build message array — support both multi-turn and legacy single-message calls
+  const conversationMessages = messages
+    ? messages.map(m => ({ role: m.role, content: m.content }))
+    : [{ role: 'user', content: message }]
 
   const response = await fetch('https://api.openai.com/v1/chat/completions', {
     method: 'POST',
@@ -37,7 +43,7 @@ ${knowledge}
       model: 'gpt-4o-mini',
       messages: [
         { role: 'system', content: systemPrompt },
-        { role: 'user', content: message },
+        ...conversationMessages,
       ],
       max_tokens: 500,
       temperature: 0.7,
